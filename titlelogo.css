@@ -1,0 +1,12 @@
+.reveal section:first-of-type {
+background-color: #FFFFFF;
+height: 100%; 
+background-image: url("affiliations.png");
+background-repeat: no-repeat !important;  
+background-size: 600px;
+background-position: bottom;}
+
+.reveal section{
+background-color: #FFFFFF;}
+
+  
