@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Danielle McCool Peter Lugtig, Barry Schouten, Ole Mussmann" />
+  <meta name="dcterms.date" content="2019-03-04" />
+  <title>Improving transportation research with passively-collected location data</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="ImprovingTransportationResearch_opt_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="ImprovingTransportationResearch_opt_files/reveal.js-3.3.0.1/css/theme/black.css" id="theme">
+
+<style type="text/css">
+.reveal section img {
+  background: rgba(255, 255, 255, 0.85);
+}
+</style>
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="titlelogo2.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Improving transportation research with passively-collected location data</h1>
+    <h2 class="author">Danielle McCool Peter Lugtig, Barry Schouten, Ole Mussmann</h2>
+    <h3 class="date">2019-03-04</h3>
+</section>
+
+<section id="sensor-data-projects-from-win" class="slide level2" data-transition="none">
+<h2>Sensor data projects from WIN</h2>
+<ul>
+<li><span class="fragment highlight-green"> Travel/mobility</li>
+<li><span class="fragment highlight-green">Time use</li>
+<li>Budget expenditure</li>
+<li>Fitness/physical activity</li>
+</ul>
+</section>
+<section id="this-projet" class="slide level2" color="#cccccc">
+<h2>This projet</h2>
+<p class="fragment highlight-current-green">
+We record always-on passive location data
+</p>
+<p class="fragment highlight-current-green">
+from mobile devices
+</p>
+<p class="fragment highlight-current-green">
+for the Ministry of Infrastructure
+</p>
+<p class="fragment highlight-current-green">
+<span class="fragment strike"> to supplement existing travel diary studies </span>
+</p>
+<p class="fragment fade-in">
+<span class="fragment highlight-current-green"> to replace existing travel diary studies </span>
+</p>
+</section>
+<section id="cbs-travel-app" class="slide level2">
+<h2>CBS travel app</h2>
+<p class="fragment highlight-current-green">
+CBS in-house programmer (intern)
+</p>
+<p class="fragment highlight-current-green">
+Field test <strong>11/2018</strong> – <strong>12/2018</strong>
+</p>
+<p class="fragment highlight-current-green">
+1902 letters
+</p>
+</section>
+<section id="cbs-field-test-data" class="slide level2">
+<h2>CBS field test data</h2>
+<p>Data being digested by:</p>
+<ul>
+<li>2 Research Masters students</li>
+<li>3ish interns</li>
+<li>Handful of programmers</li>
+<li>At least two professors</li>
+<li>1 PhD student</li>
+</ul>
+</section>
+<section id="stops" class="slide level2">
+<h2>Stops</h2>
+<p><img data-src="stop1.png" alt="stop1" /></p>
+<p class="fragment highlight-green">
+User-supplied motive
+</p>
+<span class="fragment highlight-green"> User-supplied name
+</p>
+</section>
+<section class="slide level2">
+
+<video class="stretch" src="tour_video_stop_motive_nl.mp4">
+</video>
+</section>
+<section id="tracks" class="slide level2">
+<h2>Tracks</h2>
+<p><img data-src="track1.png" alt="track1" /></p>
+<p class="fragment highlight-green">
+Only get a transport mode
+</p>
+<p><span class="fragment fade-in">🚴 🚗 🚁 </span></p>
+</section>
+<section class="slide level2">
+
+<video class="stretch" src="tour_video_transportmode_nl.mp4">
+</video>
+</section>
+<section id="important-bits" class="slide level2">
+<h2>Important bits</h2>
+<p class="fragment highlight-current-green">
+Device information
+</p>
+<p class="fragment highlight-current-green">
+Location data
+</p>
+<p class="fragment highlight-current-green">
+Track data
+</p>
+<p class="fragment highlight-current-green">
+Stop data
+</p>
+<p class="fragment highlight-current-green">
+Daily Questions
+</p>
+<aside class="notes">
+Here’s the most important bits.
+</aside>
+</section>
+<section id="important-bits-1" class="slide level2">
+<h2>Important bits</h2>
+<ul>
+<li>Location data</li>
+<li>Track data</li>
+<li>Stop data</li>
+</ul>
+</section>
+<section id="location-data" class="slide level2">
+<h2>Location data</h2>
+<ul>
+<li>High-tracking mode: 1 measurement per second</li>
+<li>Low-tracking mode: 1 measurement per minute</li>
+</ul>
+</section>
+<section id="track-data" class="slide level2">
+<h2>Track data</h2>
+<ul>
+<li>Start time</li>
+<li>Stop time</li>
+<li><em>Transportation mode</em></li>
+</ul>
+</section>
+<section id="stop-data" class="slide level2">
+<h2>Stop data</h2>
+<ul>
+<li>Start time</li>
+<li>Stop time</li>
+<li><em>Stop name</em></li>
+<li><em>Stop motive</em></li>
+</ul>
+</section>
+<section id="interesting-challenges" class="slide level2">
+<h2>Interesting challenges</h2>
+<p class="fragment highlight-current-green">
+<strong>Incomplete data</strong>
+</p>
+<p class="fragment highlight-current-green">
+Device differences
+</p>
+<p class="fragment highlight-current-green">
+Strange sensor measurements
+</p>
+<p class="fragment highlight-current-green">
+Sensitivity vs. battery life
+</p>
+<p class="fragment highlight-current-green">
+<strong>What is a stop</strong>
+</p>
+</section>
+<section id="what-is-a-stop" class="slide level2">
+<h2>What is a stop?</h2>
+<p><img data-src="travel_plot.png" alt="test" /></p>
+</section>
+<section id="what-is-a-stop-lvl-2" class="slide level2">
+<h2>What is a stop (lvl 2)</h2>
+<p><img data-src="home_plot.png" alt="“home”" /></p>
+</section>
+<section id="what-is-a-stop-lvl-3" class="slide level2">
+<h2>What is a stop (lvl 3)</h2>
+<p><img data-src="work_image.png" alt="work" /></p>
+</section>
+<section id="not-a-stop" class="slide level2">
+<h2>Not a stop</h2>
+<ul>
+<li>Waiting at a stoplight</li>
+<li>Being stuck in traffic</li>
+<li>Switching Wi-Fi on and having your position change</li>
+</ul>
+</section>
+<section id="a-stop" class="slide level2">
+<h2>A stop</h2>
+<ul>
+<li>Going from one building to another on campus</li>
+<li>Taking your dog to the dog park</li>
+<li>Dropping your kid off at school</li>
+</ul>
+</section>
+<section id="section" class="slide level2">
+<h2>???</h2>
+<ul>
+<li>Waiting for your train at the station</li>
+<li>Taking your dog for a walk</li>
+<li>Going to ask the neighbors for your package</li>
+</ul>
+</section>
+<section id="our-stop-definition" class="slide level2">
+<h2>Our stop definition</h2>
+<p>Two levels</p>
+<ol type="1">
+<li>Data collection</li>
+<li>User interface</li>
+</ol>
+</section>
+<section id="data-collection" class="slide level2">
+<h2>Data collection</h2>
+<p>Parameters trigger ‘high-tracking’ and ‘low-tracking’ modes on the device.</p>
+<ol type="1">
+<li>Distance Delta Limit</li>
+<li>Time period within that radius</li>
+</ol>
+</section>
+<section id="user-interface" class="slide level2">
+<h2>User interface</h2>
+<ol type="1">
+<li><strong>Grouping radius</strong></li>
+<li><strong>Time</strong></li>
+<li>Minimum Stop Accuracy</li>
+<li>Stop merge radius</li>
+<li>Stop merge max travel radius</li>
+</ol>
+<aside class="notes">
+<ul>
+<li>Different because we want to collect data more precisely</li>
+<li>THe fieldtest has two experimental parameters</li>
+</ul>
+</aside>
+</section>
+<section id="grouping-radius-parameter" class="slide level2">
+<h2>Grouping radius parameter</h2>
+<p><img data-src="work_image_radius.png" alt="work" /></p>
+</section>
+<section id="time-parameter" class="slide level2">
+<h2>Time parameter</h2>
+<p><img data-src="work_image_time.png" alt="work" /></p>
+</section>
+<section id="better-interpretation" class="slide level2">
+<h2>Better interpretation</h2>
+<p><img data-src="work_image_good.png" alt="work" /></p>
+</section>
+<section id="missing-data" class="slide level2">
+<h2>Missing data</h2>
+<p>Missing data occurs at myriad levels within this data.</p>
+<ol type="1">
+<li class="fragment">Recruitment (Willingness)</li>
+<li class="fragment">App/device incompatibility (?)</li>
+<li class="fragment">App installation (Compliance)</li>
+<li class="fragment">App closes itself (?)</li>
+<li class="fragment">App only has location on Wi-Fi or GPS</li>
+<li class="fragment">Device dies</li>
+<li class="fragment">Short losses due to tunnels or buildings</li>
+<li class="fragment">Filling in the user-generated data (Attrition)</li>
+</ol>
+</section>
+<section id="missing-data-in-the-recruitment-phase" class="slide level2">
+<h2>Missing data in the recruitment phase</h2>
+<p><img data-src="p1.png" alt="recruitment" /></p>
+</section>
+<section id="missing-data-over-time-per-os" class="slide level2">
+<h2>Missing data over time per OS</h2>
+<p><img data-src="p2.png" alt="recruitment" /></p>
+</section>
+<section id="missing-data-within-a-day" class="slide level2">
+<h2>Missing data within a day</h2>
+<p><img data-src="p3.png" alt="recruitment" /></p>
+</section>
+<section id="missing-data-within-a-trip" class="slide level2">
+<h2>Missing data within a trip</h2>
+<p><img data-src="bridge.png" alt="recruitment" /></p>
+</section>
+<section id="section-1" class="slide level2" data-background-image="routegif.gif">
+<h2></h2>
+</section>
+<section id="next-steps" class="slide level2">
+<h2>Next steps</h2>
+<p>PhD project consists of five projects (2018-2021):</p>
+<ul>
+<li>A descriptive paper over the app</li>
+<li>Adjustment for missing data in CBS verplaatsingen app</li>
+<li>Adjustment for measurement error/inaccurate measurements in CBS verplaatsingen app</li>
+<li>Two projects linked to time-use sensor data</li>
+</ul>
+</section>
+<section id="thanks-questions" class="slide level2">
+<h2>Thanks! Questions?</h2>
+<h5 id="summary">Summary</h5>
+<ul>
+<li>Goal: critically examine app as diary replacement</li>
+<li>Field test had over 600 respondents</li>
+<li>Self-reported stops are difficult to reproduce programmatically</li>
+<li>Lots of flavors of missingness</li>
+<li>Immediate issues: reporting distance to the stakeholders</li>
+</ul>
+<p><small>Like to know more?</small> <small><a href="mailto:d.m.mccool@uu.nl" class="email">d.m.mccool@uu.nl</a></small></p>
+</section>
+    </div>
+  </div>
+
+  <script src="ImprovingTransportationResearch_opt_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="ImprovingTransportationResearch_opt_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Transition style
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // Parallax background image
+        parallaxBackgroundImage: 'reveal-parallax-2.jpg', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+        // Parallax background size
+        parallaxBackgroundSize: '3026px 990px', // CSS syntax, e.g. "2100px 900px"
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'ImprovingTransportationResearch_opt_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
