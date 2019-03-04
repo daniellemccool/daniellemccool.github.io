@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <meta name="author" content="Danielle McCool and Barry Schouten" />
-  <meta name="dcterms.date" content="2019-01-24" />
+  <meta name="author" content="Danielle McCool" />
+  <meta name="dcterms.date" content="2019-03-04" />
   <title>Improving transportation research with passively-collected location data</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -76,8 +76,13 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<link rel="stylesheet" href="ImprovingTransportationResearch_opt_files/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+<link rel="stylesheet" href="ImprovingTransportationResearch_opt_files/reveal.js-3.3.0.1/css/theme/black.css" id="theme">
 
+<style type="text/css">
+.reveal section img {
+  background: rgba(255, 255, 255, 0.85);
+}
+</style>
 
   <!-- some tweaks to reveal css -->
   <style type="text/css">
@@ -124,7 +129,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
     <style type="text/css">code{white-space: pre;}</style>
 
-    <link rel="stylesheet" href="titlelogo.css"/>
+    <link rel="stylesheet" href="titlelogo2.css"/>
 
 <!-- Printing and PDF exports -->
 <script id="paper-css" type="application/dynamic-css">
@@ -515,127 +520,122 @@ document.getElementsByTagName('head')[0].appendChild(style);
 
 <section>
     <h1 class="title">Improving transportation research with passively-collected location data</h1>
-    <h2 class="author">Danielle McCool and Barry Schouten</h2>
-    <h3 class="date">2019-01-24</h3>
+    <h2 class="author">Danielle McCool</h2>
+    <h3 class="date">2019-03-04</h3>
 </section>
 
-<section id="win-sensor-data-projects" class="slide level2">
-<h2>WIN sensor data projects</h2>
+<section id="sensor-data-projects-from-win" class="slide level2" data-transition="none">
+<h2>Sensor data projects from WIN</h2>
 <ul>
-<li>Travel/mobility
-<ul>
-<li>Stakeholders RWS/KiM</li>
-<li>Location (GSM, Wi-Fi, GPS) and motion sensors</li>
-</ul></li>
-<li>Time use
-<ul>
-<li>Stakeholder SCP</li>
-<li>Location (GSM, Wi-Fi, GPS) and motion sensors</li>
-<li>Possibly wearables</li>
-</ul></li>
-<li>Budget expenditure
-<ul>
-<li>Eurostat project @ HBS</li>
-<li>Location (GSM, Wi-Fi, GPS) and camera</li>
-</ul></li>
-<li>Fitness/physical activity
-<ul>
-<li>Stakeholders RIVM, GGD</li>
-<li>Wearables</li>
-</ul></li>
+<li><span class="fragment highlight-green"> Travel/mobility</li>
+<li><span class="fragment highlight-green">Time use</li>
+<li>Budget expenditure</li>
+<li>Fitness/physical activity</li>
 </ul>
-<aside class="notes">
-This project is a product of the Waarneming Innovatie Netwerk group that’s a collaboration between University Utrecht and CBS. The WIN group is working with sensor data to find ways to expand and improve survey collection methodology across a number of different areas, including mobility, time use, budget and fitness.
-</aside>
 </section>
-<section id="win-sensor-data-projects-1" class="slide level2">
-<h2>WIN sensor data projects</h2>
+<section id="this-projet" class="slide level2" color="#cccccc">
+<h2>This projet</h2>
+<p class="fragment highlight-current-green">
+We record always-on passive location data
+</p>
+<p class="fragment highlight-current-green">
+from mobile devices
+</p>
+<p class="fragment highlight-current-green">
+for the Ministry of Infrastructure
+</p>
+<p class="fragment highlight-current-green">
+<span class="fragment strike"> to supplement existing travel diary studies </span>
+</p>
+<p class="fragment fade-in">
+<span class="fragment highlight-current-green"> to replace existing travel diary studies </span>
+</p>
+</section>
+<section id="cbs-travel-app" class="slide level2">
+<h2>CBS travel app</h2>
+<p class="fragment highlight-current-green">
+CBS in-house programmer (intern)
+</p>
+<p class="fragment highlight-current-green">
+Field test <strong>11/2018</strong> – <strong>12/2018</strong>
+</p>
+<p class="fragment highlight-current-green">
+1902 letters
+</p>
+</section>
+<section id="cbs-field-test-data" class="slide level2">
+<h2>CBS field test data</h2>
+<p>Data being digested by:</p>
 <ul>
-<li>Travel/mobility for RWS/KiM</li>
-<li>Time use for SCP</li>
-<li>Budget expenditure as Eurostat project @ HBS</li>
-<li>Fitness/physical activity for RIVM and GGD</li>
+<li>2 Research Masters students</li>
+<li>3ish interns</li>
+<li>Handful of programmers</li>
+<li>At least two professors</li>
+<li>1 PhD student</li>
 </ul>
-<aside class="notes">
-This project is a product of the Waarneming Innovatie Netwerk group that’s a collaboration between University Utrecht and CBS. The WIN group is working with sensor data to find ways to expand and improve survey collection methodology across a number of different areas, including mobility, time use, budget and fitness.
-</aside>
 </section>
-<section id="this-project-on-travel-and-mobility" class="slide level2">
-<h2>This project on Travel and mobility</h2>
-<ul>
-<li>Both UU and CBS</li>
-<li>Stakeholders RWS/KiM</li>
-<li>Location (GSM, Wi-Fi, GPS)</li>
-</ul>
-<aside class="notes">
-For this project, we’re working with the Rijkswaterstaat and Knowledge Institute for Mobility They currently run a mobility panel to determine travel habits of the Dutch population Covers a single day per person, self-reported information. QUestion is what can sensor data offer us here?
-</aside>
+<section id="stops" class="slide level2">
+<h2>Stops</h2>
+<p><img data-src="stop1.png" alt="stop1" /></p>
+<p class="fragment highlight-green">
+User-supplied motive
+</p>
+<span class="fragment highlight-green"> User-supplied name
+</p>
 </section>
-<section id="cbs-verplaatsingen-app" class="slide level2">
-<h2>CBS verplaatsingen app</h2>
-<p>Fieldtest (Nov-Dec) to evaluate recruitment and data collection strategies as well as general data quality</p>
-<ul>
-<li>Analyses
-<ul>
-<li>Quick-turnaround set for making future decisions</li>
-<li>More comprehensive set for quality analysis and methodology development</li>
-</ul></li>
-<li>Team
-<ul>
-<li>Danielle McCool as PhD</li>
-<li>Two EMOS students (Katie Roth and Laurent Smeets)</li>
-<li>Trainee (Lars Killaars)</li>
-<li>WIN researchers</li>
-</ul></li>
-</ul>
-<aside class="notes">
-We have a strong team working on two sets of analyses. Goal of first: fast reports to inform future decisions Goal of second: Effective editing and imputation methodologies and stop detection
-</aside>
+<section class="slide level2">
+
+<video class="stretch" src="tour_video_stop_motive_nl.mp4">
+</video>
 </section>
-<section id="section" class="slide level2" data-background-video="tour_video_transportmode_nl.mp4" data-background-video-loop="loop">
-<h2></h2>
+<section id="tracks" class="slide level2">
+<h2>Tracks</h2>
+<p><img data-src="track1.png" alt="track1" /></p>
+<p class="fragment highlight-green">
+Only get a transport mode
+</p>
+<p><span class="fragment fade-in">🚴 🚗 🚁 </span></p>
 </section>
-<section id="section-1" class="slide level2" data-background-video="tour_video_stop_motive_nl.mp4" data-background-video-loop="loop">
-<h2></h2>
-</section>
-<section id="dimensions-of-the-data" class="slide level2">
-<h2>Dimensions of the data</h2>
-<p><img data-src="tablespng.png" alt="test" /></p>
-<aside class="notes">
-We collect a lot of different types of data from the user in order to support this system.
-</aside>
+<section class="slide level2">
+
+<video class="stretch" src="tour_video_transportmode_nl.mp4">
+</video>
 </section>
 <section id="important-bits" class="slide level2">
 <h2>Important bits</h2>
-<ul>
-<li>Device information</li>
-<li>Location data</li>
-<li>Track data</li>
-<li>Stop data</li>
-<li>Daily Questions</li>
-</ul>
+<p class="fragment highlight-current-green">
+Device information
+</p>
+<p class="fragment highlight-current-green">
+Location data
+</p>
+<p class="fragment highlight-current-green">
+Track data
+</p>
+<p class="fragment highlight-current-green">
+Stop data
+</p>
+<p class="fragment highlight-current-green">
+Daily Questions
+</p>
 <aside class="notes">
 Here’s the most important bits.
 </aside>
 </section>
-<section id="device-information" class="slide level2">
-<h2>Device information</h2>
+<section id="important-bits-1" class="slide level2">
+<h2>Important bits</h2>
 <ul>
-<li>Make</li>
-<li>Model</li>
-<li>OS</li>
-<li>OS version</li>
+<li>Location data</li>
+<li>Track data</li>
+<li>Stop data</li>
 </ul>
 </section>
 <section id="location-data" class="slide level2">
 <h2>Location data</h2>
 <ul>
 <li>High-tracking mode: 1 measurement per second</li>
-<li>Low-trackign mode: 1 measurement per minute</li>
+<li>Low-tracking mode: 1 measurement per minute</li>
 </ul>
-<aside class="notes">
-I’ll talk later about how the device decides to go into high and low tracking mode Almost-continuous passive data. As long as the app is running in the background, we’re receiving location updates.
-</aside>
 </section>
 <section id="track-data" class="slide level2">
 <h2>Track data</h2>
@@ -654,22 +654,23 @@ I’ll talk later about how the device decides to go into high and low tracking 
 <li><em>Stop motive</em></li>
 </ul>
 </section>
-<section id="daily-questions" class="slide level2">
-<h2>Daily questions</h2>
-<ul>
-<li>“Did you have your phone with you today?”</li>
-<li>“Was today a normal day for you?”</li>
-</ul>
-</section>
 <section id="interesting-challenges" class="slide level2">
 <h2>Interesting challenges</h2>
-<ul>
-<li class="fragment"><strong>Incomplete data</strong></li>
-<li class="fragment">Device differences</li>
-<li class="fragment">Strange sensor measurements</li>
-<li class="fragment">Sensitivity vs. battery life</li>
-<li class="fragment"><strong>What is a stop</strong></li>
-</ul>
+<p class="fragment highlight-current-green">
+<strong>Incomplete data</strong>
+</p>
+<p class="fragment highlight-current-green">
+Device differences
+</p>
+<p class="fragment highlight-current-green">
+Strange sensor measurements
+</p>
+<p class="fragment highlight-current-green">
+Sensitivity vs. battery life
+</p>
+<p class="fragment highlight-current-green">
+<strong>What is a stop</strong>
+</p>
 </section>
 <section id="what-is-a-stop" class="slide level2">
 <h2>What is a stop?</h2>
@@ -699,7 +700,7 @@ I’ll talk later about how the device decides to go into high and low tracking 
 <li>Dropping your kid off at school</li>
 </ul>
 </section>
-<section id="section-2" class="slide level2">
+<section id="section" class="slide level2">
 <h2>???</h2>
 <ul>
 <li>Waiting for your train at the station</li>
@@ -790,7 +791,7 @@ We have to identify when a person has been within a given radius for a sufficien
 <h2>Missing data within a trip</h2>
 <p><img data-src="bridge.png" alt="recruitment" /></p>
 </section>
-<section id="section-3" class="slide level2" data-background-image="routegif.gif">
+<section id="section-1" class="slide level2" data-background-image="routegif.gif">
 <h2></h2>
 </section>
 <section id="next-steps" class="slide level2">
@@ -834,9 +835,9 @@ We have to identify when a person has been within a given radius for a sufficien
         // Transition style for full page slide backgrounds
         backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
         // Parallax background image
-        parallaxBackgroundImage: 'pbg4.png', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+        parallaxBackgroundImage: 'reveal-parallax-2.jpg', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
         // Parallax background size
-        parallaxBackgroundSize: '2918px 2110px', // CSS syntax, e.g. "2100px 900px"
+        parallaxBackgroundSize: '3026px 990px', // CSS syntax, e.g. "2100px 900px"
 
 
 

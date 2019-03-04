@@ -1,127 +1,100 @@
 ---
 title: "Improving transportation research with passively-collected location data"
-author: "Danielle McCool and Barry Schouten"
+author: "Danielle McCool"
 date: "`r Sys.Date()`"
 output:
   revealjs::revealjs_presentation: 
     self_contained: false 
-    theme: simple
-    css: titlelogo.css 
+    theme: black
+    css: titlelogo2.css 
     reveal_options:  
-      parallaxBackgroundImage: pbg4.png
-      parallaxBackgroundSize: 2918px 2110px
+      parallaxBackgroundImage: reveal-parallax-2.jpg
+      parallaxBackgroundSize: 3026px 990px
     reveal_plugins: "notes"
 
 ---
 
-## WIN sensor data projects
 
-- Travel/mobility
-  - Stakeholders RWS/KiM
-  - Location (GSM, Wi-Fi, GPS) and motion sensors
-- Time use
-  - Stakeholder SCP
-  - Location (GSM, Wi-Fi, GPS) and motion sensors
-  - Possibly wearables
+## Sensor data projects from WIN {data-transition="none"}
+
+- <span class="fragment highlight-green"> Travel/mobility
+- <span class="fragment highlight-green">Time use
 - Budget expenditure
-  - Eurostat project @ HBS
-  - Location (GSM, Wi-Fi, GPS) and camera
 - Fitness/physical activity
-  - Stakeholders RIVM, GGD
-  - Wearables
-  
-<aside class="notes">
-  This project is a product of the Waarneming Innovatie Netwerk group that's a collaboration between University Utrecht and CBS. The WIN group is working with sensor data to find ways to expand and improve survey collection methodology across a number of different areas, including mobility, time use, budget and fitness.
-</aside>
 
-## WIN sensor data projects
-  
-- Travel/mobility for RWS/KiM
-- Time use for SCP
-- Budget expenditure as Eurostat project @ HBS
-- Fitness/physical activity for RIVM and GGD
 
-<aside class="notes">
-  This project is a product of the Waarneming Innovatie Netwerk group that's a collaboration between University Utrecht and CBS. The WIN group is working with sensor data to find ways to expand and improve survey collection methodology across a number of different areas, including mobility, time use, budget and fitness.
-</aside>
+## This projet {color="#cccccc"}
 
-## This project on Travel and mobility
+<p class="fragment highlight-current-green">We record always-on passive location data </p>
+<p class="fragment highlight-current-green">from mobile devices</p>
+<p class="fragment highlight-current-green">for the Ministry of Infrastructure</p>
+<p class="fragment highlight-current-green"> <span class="fragment strike"> to supplement existing travel diary studies </span> </p>
+<p class="fragment fade-in"><span class="fragment highlight-current-green"> to replace existing travel diary studies </span></p>
 
-- Both UU and CBS
-- Stakeholders RWS/KiM
-- Location (GSM, Wi-Fi, GPS)
+
 
   
-<aside class="notes">
-For this project, we're working with the Rijkswaterstaat and Knowledge Institute for Mobility
-They currently run a mobility panel to determine travel habits of the Dutch population
-Covers a single day per person, self-reported information. 
-QUestion is what can sensor data offer us here?
-</aside>
+## CBS travel app
 
-  
-## CBS verplaatsingen app
+<p class="fragment highlight-current-green">CBS in-house programmer (intern)</p>
+<p class="fragment highlight-current-green">Field test **11/2018** -- **12/2018** </p>
+<p class="fragment highlight-current-green">1902 letters</p>
 
-Fieldtest (Nov-Dec) to evaluate recruitment and data collection strategies as well as general data quality
+## CBS field test data
 
-- Analyses
-  + Quick-turnaround set for making future decisions
-  + More comprehensive set for quality analysis and methodology development
-- Team
-  + Danielle McCool as PhD
-  + Two EMOS students (Katie Roth and Laurent Smeets)
-  + Trainee (Lars Killaars)
-  + WIN researchers
+Data being digested by: 
 
-<aside class="notes">
-We have a strong team working on two sets of analyses. 
-Goal of first: fast reports to inform future decisions
-Goal of second: Effective editing and imputation methodologies and stop detection
-</aside>
+- 2 Research Masters students
+- 3ish interns
+- Handful of programmers
+- At least two professors
+- 1 PhD student
 
-## {data-background-video="tour_video_transportmode_nl.mp4" data-background-video-loop="loop"}
+## Stops
+![stop1](stop1.png)
+
+<p class="fragment highlight-green"> User-supplied motive </p>
+<span class="fragment highlight-green"> User-supplied name </p>
 
 
-## {data-background-video="tour_video_stop_motive_nl.mp4" data-background-video-loop="loop"}
+***
+<video class="stretch" src="tour_video_stop_motive_nl.mp4"></video>
+
+## Tracks
+
+![track1](track1.png)
+
+<p class="fragment highlight-green"> Only get a transport mode </p>
+<span class="fragment fade-in">&#128692; &#128663;  &#128641; </span>
+
+***
+<video class="stretch" src="tour_video_transportmode_nl.mp4"></video>
 
 
-## Dimensions of the data
-
-![test](tablespng.png)
-
-<aside class="notes">
-We collect a lot of different types of data from the user in order to support this system. 
-</aside>
 
 ## Important bits
 
-- Device information
-- Location data
-- Track data
-- Stop data
-- Daily Questions
+<p class="fragment highlight-current-green"> Device information </p>
+<p class="fragment highlight-current-green">Location data </p>
+<p class="fragment highlight-current-green">Track data </p>
+<p class="fragment highlight-current-green">Stop data</p>
+<p class="fragment highlight-current-green">Daily Questions</p>
 
 <aside class="notes">
 Here's the most important bits. 
 </aside>
 
-## Device information
+## Important bits
 
-- Make
-- Model
-- OS
-- OS version
+- Location data 
+- Track data 
+- Stop data
+
 
 ## Location data
 
 - High-tracking mode: 1 measurement per second
-- Low-trackign mode: 1 measurement per minute
-
-<aside class="notes">
-I'll talk later about how the device decides to go into high and low tracking mode
-Almost-continuous passive data. 
-As long as the app is running in the background, we're receiving location updates.
-</aside>
+- Low-tracking mode: 1 measurement per minute
 
 ## Track data
 
@@ -136,19 +109,14 @@ As long as the app is running in the background, we're receiving location update
 - *Stop name*
 - *Stop motive*
 
-## Daily questions
-
-- "Did you have your phone with you today?"
-- "Was today a normal day for you?"
-
 
 ## Interesting challenges
 
-> - **Incomplete data**
-> - Device differences
-> - Strange sensor measurements
-> - Sensitivity vs. battery life
-> - **What is a stop**
+<p class="fragment highlight-current-green">**Incomplete data** </p>
+<p class="fragment highlight-current-green">Device differences </p>
+<p class="fragment highlight-current-green">Strange sensor measurements </p>
+<p class="fragment highlight-current-green">Sensitivity vs. battery life </p>
+<p class="fragment highlight-current-green">**What is a stop** </p>
 
 
 ## What is a stop?
@@ -197,20 +165,6 @@ Parameters trigger 'high-tracking' and 'low-tracking' modes on the device.
 1. Distance Delta Limit 
 2. Time period within that radius
 
-```{R echo = TRUE, eval=FALSE}
-bool Check(TimeSpan period)
-{
- isMoving     = (Position_B - Position_A > Distance Delta Limit);
- isWithinTime = (Position_B_Time - Position_A_Time < Time Period Allowed);
-  
-  return !isMoving && !isWithinTime;
-}
-```
-
-<aside class="notes">
-We have to identify when a person has been within a given radius for a sufficient time that we can identify them as stopped. Our method occurs within the app itself and requires two(ish) parameters. 
-</aside>
- 
 
 ## User interface
 
@@ -280,14 +234,14 @@ PhD project consists of five projects (2018-2021):
 
 ## Summary
 
-- Field test with 1900 to make a first foray into replacing paper surveys
-- App generally successful
+- Goal: critically examine app as diary replacement
+- Field test had over 600 respondents
 - Self-reported stops are difficult to reproduce programmatically
 - Lots of flavors of missingness
 - Immediate issues: reporting distance to the stakeholders
 
 <small>Like to know more?</small>
-<small>* d.m.mccool@uu.nl or bstn@cbs.nl</small>
+<small>d.m.mccool@uu.nl</small>
 
 
 
