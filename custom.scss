@@ -1,0 +1,209 @@
+/*-- scss:defaults --*/
+
+@import url(./fonts/league-gothic/league-gothic.css);
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;500&family=Nunito&display=swap&family=Bungee+Shade&family=Bungee');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+
+
+
+// fonts
+$font-family-sans-serif: Nunito, sans-serif !default;
+
+// colors
+$body-bg: #f7f3de !default;
+$body-color: #440154 !default;
+$link-color: #3b528b !default;
+$selection-bg: rgba(42, 120, 142, 0.99) !default;
+$block-margin: 3;
+
+// headings
+//$presentation-heading-font: "IBM Plex Sans Condensed", sans-serif !default;
+$presentation-heading-font: "Bungee", sans-serif !default;
+//$presentation-heading-text-transform: uppercase !default;
+$presentation-h1-font-size: 1.5em !default;
+$presentation-h1-letter-spacing: 5px;
+
+//$presentation-h1-text-shadow: 0 2px 0 rgba(255, 255, 255, 0.4);
+//$presentation-h1-text-shadow: @include boxShadow(#fdb1b9, 1000);
+//$presentation-h1: @include boxShadow(#fdb1b9, 1000);
+// $presentation-h1-text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb,
+//  0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1),
+//  0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3),
+//  0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25),
+//  0 20px 20px rgba(0, 0, 0, 0.15);
+
+quarto-title-author-name {
+ color:#fffff; 
+}
+
+// code blocks
+$code-block-bg: transparent !default;
+
+
+/*-- scss:rules --*/
+.reveal h1:nth-child(2){
+  @include boxShadow(#5ec962, 1000);
+  padding: 0rem;
+}
+
+.reveal h1:last-of-type{
+  @include boxShadow(#21918c, 1000);
+  padding: 0rem;
+}
+.reveal h1:first-of-type{
+  @include boxShadow(#fde725, 1000);
+  padding: 0rem;
+}
+
+//.reveal .slide-logo {
+  //height: 100px !important;
+  //width: 100px!important;
+//  max-width: 253px !important;
+//  max-height: 100px !important;
+//}
+
+.level2 {
+  h2{
+    font-family: "Bungee";
+    margin: 0 0 0 0;
+    
+  }
+
+}
+
+.reveal .slide aside {
+  font-size: .5em !important;
+  
+}
+.images {
+  h2{
+    margin: 0px 0 0 0;
+    font-size: 1em;
+  }
+}
+.text {
+//background-color: rgba(247, 243, 222, 1);
+  background: radial-gradient(ellipse 1050px 700px, rgba(247, 243, 222, .95), rgba(244, 244, 245, .95));
+  border-radius: 25px;
+  h4{
+    vertical-align: baseline;
+    color: #21918c;
+    //@include boxShadow(#fde725, 1000);
+  }
+}
+.section {
+  background-color: revert;
+  
+  h2{
+    font-size: 3.5em;
+    @include boxShadow(#fde725, 1000);
+    font-family: "Bungee Shade";
+  }
+}
+
+.footer {
+  color: #2c2c2c !important;
+//  background-color: rgba(247, 243, 222, .8);
+//  border-radius: 25px;
+  font-size: .25em;
+}
+
+#title-slide {
+//  text-align: left;
+//  width: 75%;
+
+  .title {
+    font-size: 2em;
+  }
+  
+  .subtitle {
+    font-size: 1em;
+  }
+  
+  .quarto-title-authors {
+    //justify-content: center;
+    //width: 50%;
+  vertical-align: bottom;
+    .quarto-title-author { 
+      vertical-align: bottom;
+      padding-left: 0;
+      padding-right: 0;
+      color: #f7f3de;
+      text-shadow: 0 2px 0 rgba(50, 86, 85, 0.8);
+      //width: 50%;
+    }
+  }
+  .footer {
+    background: rgba(0,0,0,0) !important;
+    font-size: large !important;
+  }
+}
+
+
+.r-fit-text{
+  vertical-align: bottom !important;
+}
+
+//.reveal .r-stack > * {
+//	grid-area: 1/1;
+//	margin: auto;
+//	.poop {
+//	  margin-bottom: 0;
+//	  padding: 20px;
+//	}
+//	img {
+//	  margin-bottom: 100px;
+//	  padding: 0;
+//	}
+//}
+
+img {
+//  box-shadow: rgba(68, 1, 84, 0.4) 30px 30px,
+//  rgba(68, 1, 84, 0.3) 40px 40px,
+//  rgba(68, 1, 84, 0.2) 50px 50px,
+//  rgba(68, 1, 84, 0.1) 60px 60px,
+//  rgba(68, 1, 84, 0.05) 70px 70px;
+  border-radius: 10%;
+//  border-right: 10px solid #f7f3de;
+//  border-bottom: 10px solid #f7f3de;
+//  margin: -80px 0 0 -80px;
+//  padding: 80px -20 -20 80px;
+//  border-image: url("/borders/border4.png") 25% !important;
+
+  -webkit-box-shadow: 40px 40px 0px 0px rgba(68,1,84,1);
+//  20px 20px 0px 10px #fde725,
+//  30px 30px 0px 10px #21918c;
+  -moz-box-shadow: 40px 40px 0px 0px rgba(68,1,84,1);
+//  20px 20px 0px 10px #fde725,
+//  30px 30px 0px 10px #21918c;
+  box-shadow:
+  10px 10px 0px 0px #f7f3de,
+  40px 40px 0px 0px rgba(68,1,84,1);
+//  20px 20px 0px 10px #fde725,
+//  30px 30px 0px 10px #21918c;
+  //box-shadow:
+  //0 0 18px #21918c,
+  //0 0 15px #440154,
+  //0 0 5px #fde725;
+}
+
+
+/*-- scss:mixins --*/
+
+@mixin bodyBackground() {
+  @include radial-gradient(#f7f3de, #f4f4f5);
+}
+
+
+@mixin boxShadow($colour, $length){
+  $value: ();
+  @for $i from 1 through $length{
+    $px: $i + px;
+    $shadow: $px $px $colour;
+    $value: append($value, $shadow, comma)
+
+  }
+  text-shadow: $value;
+}
+
