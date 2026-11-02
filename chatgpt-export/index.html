@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request your ChatGPT data export</title>
+<meta name="description" content="Six steps to request a copy of your own ChatGPT data, the way a study participant would.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #16181d;
+    --muted: #6a6f78;
+    --line: #e3e5e8;
+    --accent: #0b7285;
+    --paper: #ffffff;
+    --w: 921px;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--paper); color: var(--ink); }
+  body {
+    margin: 0;
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: var(--w);
+    margin: 0 auto;
+    padding: 40px 16px 48px;
+  }
+  header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .count {
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .progress {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+    margin-bottom: 22px;
+  }
+  .progress span {
+    height: 4px;
+    background: var(--line);
+    border-radius: 2px;
+    transition: background .2s;
+  }
+  .progress span.done { background: var(--accent); }
+  figure { margin: 0; }
+  .frame {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+    aspect-ratio: 921 / 535;
+  }
+  .frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: top left;
+  }
+  figcaption {
+    font-size: 22px;
+    line-height: 1.45;
+    max-width: 62ch;
+    margin: 26px 0 0;
+    min-height: 4.4em;
+  }
+  figcaption b { font-weight: 600; }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  button {
+    font: inherit;
+    font-size: 17px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  button.next { background: var(--ink); color: #fff; }
+  button:disabled { opacity: .3; cursor: default; }
+  button:focus-visible, a:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .hint { color: var(--muted); font-size: 15px; }
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    figcaption { font-size: 19px; min-height: 0; }
+    .hint { display: none; }
+    main { padding-top: 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .progress span { transition: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Request your ChatGPT data export</h1>
+    <div class="count"><span id="n">1</span> of 6</div>
+  </header>
+  <div class="progress" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <figure>
+    <div class="frame"><img id="shot" src="step-1.png" alt="" width="921" height="535"></div>
+    <figcaption id="cap"></figcaption>
+  </figure>
+  <nav aria-label="Steps">
+    <button id="back" class="back" type="button">Back</button>
+    <span class="hint">Use the arrow keys to move between steps</span>
+    <button id="next" class="next" type="button">Next</button>
+  </nav>
+</main>
+<script>
+  const steps = [
+    'Open <b>chatgpt.com</b> and sign in. Click your name at the bottom left of the sidebar and choose <b>Settings</b>.',
+    'Settings opens on General. In the left menu, scroll down and click <b>Data controls</b>.',
+    'Scroll to the bottom of Data controls and click <b>Export</b>, next to Export data.',
+    'Read the notice. The download link goes to your registered email address and expires after 24 hours. Click <b>Confirm export</b>.',
+    'ChatGPT asks you to re-enter your password. You may also have to sign in again and complete two-factor authentication. Then click <b>Continue</b>.',
+    'A green banner confirms the request. The export can take up to about 12 hours to arrive, so watch your inbox for an email from OpenAI with the download link.'
+  ];
+  const alts = [
+    'ChatGPT home screen with the sidebar open and the account name at the bottom left',
+    'Settings page showing the General section, with Data controls in the left menu',
+    'Data controls section scrolled to the bottom, showing the Export data row with an Export button',
+    'Dialog titled Request data export with a Confirm export button',
+    'OpenAI screen asking you to verify by entering your current password',
+    'Data controls with a green banner reading Data export requested'
+  ];
+  const img = document.getElementById('shot');
+  const cap = document.getElementById('cap');
+  const n = document.getElementById('n');
+  const back = document.getElementById('back');
+  const next = document.getElementById('next');
+  const bars = document.querySelectorAll('.progress span');
+  let i = 0;
+
+  function show(k, push) {
+    i = Math.max(0, Math.min(steps.length - 1, k));
+    img.src = 'step-' + (i + 1) + '.png';
+    img.alt = alts[i];
+    cap.innerHTML = steps[i];
+    n.textContent = i + 1;
+    bars.forEach((b, j) => b.classList.toggle('done', j <= i));
+    back.disabled = i === 0;
+    next.disabled = i === steps.length - 1;
+    next.textContent = i === steps.length - 1 ? 'Done' : 'Next';
+    if (push !== false) history.replaceState(null, '', '#' + (i + 1));
+    if (i + 1 < steps.length) { const p = new Image(); p.src = 'step-' + (i + 2) + '.png'; }
+  }
+  back.addEventListener('click', () => show(i - 1));
+  next.addEventListener('click', () => show(i + 1));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+  });
+  window.addEventListener('hashchange', () => show((parseInt(location.hash.slice(1), 10) || 1) - 1, false));
+  show((parseInt(location.hash.slice(1), 10) || 1) - 1, false);
+</script>
+</body>
+</html>
