@@ -104,6 +104,7 @@
     min-height: 4.4em;
   }
   figcaption b { font-weight: 600; }
+  figcaption a { color: var(--accent); text-underline-offset: 3px; }
   figcaption i { color: var(--muted); }
   nav {
     display: flex;
@@ -167,7 +168,7 @@
   // Boxes are [x0, y0, x1, y1] in pixels of the 914x480 screenshots.
   const W = 914, H = 480;
   const steps = [
-    { cap: 'Open <b>instagram.com</b> and sign in. Click <b>Meer</b> <i>(More)</i> at the bottom left, then <b>Instellingen</b> <i>(Settings)</i> in the menu that opens.',
+    { cap: 'Open <a href="https://www.instagram.com" target="_blank" rel="noopener">instagram.com</a> and sign in. Click <b>Meer</b> <i>(More)</i> at the bottom left, then <b>Instellingen</b> <i>(Settings)</i> in the menu that opens.',
       alt: 'Instagram home page with the Meer menu open, showing Instellingen as the first item',
       rings: [[15, 440, 105, 474], [230, 80, 480, 122]],
       spot: [230, 80, 480, 122] },
