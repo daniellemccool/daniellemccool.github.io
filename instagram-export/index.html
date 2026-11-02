@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request your Instagram data export</title>
+<meta name="description" content="Nine steps to request a copy of your own Instagram data from Meta Accounts Centre, the way a study participant would.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #16181d;
+    --muted: #6a6f78;
+    --line: #e3e5e8;
+    --accent: #0b7285;
+    --paper: #ffffff;
+    --w: 914px;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--paper); color: var(--ink); }
+  body {
+    margin: 0;
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: var(--w);
+    margin: 0 auto;
+    padding: 40px 16px 48px;
+  }
+  header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .count {
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .progress {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 6px;
+    margin-bottom: 22px;
+  }
+  .progress span {
+    height: 4px;
+    background: var(--line);
+    border-radius: 2px;
+    transition: background .2s;
+  }
+  .progress span.done { background: var(--accent); }
+  figure { margin: 0; }
+  .frame {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+    aspect-ratio: 914 / 480;
+  }
+  .frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .spot {
+    position: absolute;
+    border-radius: 8px;
+    box-shadow: 0 0 0 200vmax rgba(22, 24, 29, .32);
+    pointer-events: none;
+  }
+  .ring {
+    position: absolute;
+    border: 3px solid var(--accent);
+    border-radius: 8px;
+    box-shadow: 0 0 0 0 rgba(11, 114, 133, .55);
+    animation: pulse 1.8s ease-out infinite;
+    pointer-events: none;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(11, 114, 133, .55); }
+    70%  { box-shadow: 0 0 0 14px rgba(11, 114, 133, 0); }
+    100% { box-shadow: 0 0 0 14px rgba(11, 114, 133, 0); }
+  }
+  figcaption {
+    font-size: 22px;
+    line-height: 1.45;
+    max-width: 62ch;
+    margin: 26px 0 0;
+    min-height: 4.4em;
+  }
+  figcaption b { font-weight: 600; }
+  figcaption i { color: var(--muted); }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  button {
+    font: inherit;
+    font-size: 17px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  button.next { background: var(--ink); color: #fff; }
+  button:disabled { opacity: .3; cursor: default; }
+  button:focus-visible, a:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .hint { color: var(--muted); font-size: 15px; }
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    figcaption { font-size: 19px; min-height: 0; }
+    .hint { display: none; }
+    main { padding-top: 24px; }
+    .ring { border-width: 2px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .progress span { transition: none; }
+    .ring { animation: none; box-shadow: 0 0 0 4px rgba(11, 114, 133, .25); }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Request your Instagram data export</h1>
+    <div class="count"><span id="n">1</span> of <span id="total">9</span></div>
+  </header>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <figure>
+    <div class="frame">
+      <img id="shot" src="step-1.png" alt="" width="914" height="480">
+      <div id="marks" aria-hidden="true"></div>
+    </div>
+    <figcaption id="cap"></figcaption>
+  </figure>
+  <nav aria-label="Steps">
+    <button id="back" class="back" type="button">Back</button>
+    <span class="hint">Use the arrow keys to move between steps</span>
+    <button id="next" class="next" type="button">Next</button>
+  </nav>
+</main>
+<script>
+  // Boxes are [x0, y0, x1, y1] in pixels of the 914x480 screenshots.
+  const W = 914, H = 480;
+  const steps = [
+    { cap: 'Open <b>accountscenter.instagram.com</b> and sign in. Under Accountinstellingen, click <b>Je gegevens en toestemmingen</b> <i>(Your information and permissions)</i>.',
+      alt: 'Meta Accounts Centre with the Je gegevens en toestemmingen row in the account settings list',
+      rings: [[121, 392, 789, 443]] },
+    { cap: 'Click <b>Je gegevens exporteren</b> <i>(Export your information)</i>.',
+      alt: 'Your information and permissions page with the Je gegevens exporteren row',
+      rings: [[136, 206, 774, 258]] },
+    { cap: 'Click the blue <b>Export maken</b> <i>(Create export)</i> button.',
+      alt: 'Dialog titled Je gegevens exporteren with a blue Export maken button',
+      rings: [[175, 221, 735, 265]] },
+    { cap: 'Choose your <b>Instagram</b> profile. If your Facebook account is linked it appears here too; pick the one marked Instagram.',
+      alt: 'Dialog titled Een profiel kiezen listing a Facebook profile and an Instagram profile',
+      rings: [[176, 265, 734, 329]] },
+    { cap: 'Click <b>Exporteren naar apparaat</b> <i>(Export to device)</i>.',
+      alt: 'Dialog asking where to export, with Exporteren naar apparaat and Exporteren naar externe service',
+      rings: [[176, 229, 734, 281]] },
+    { cap: 'The export settings appear. Click <b>Indeling</b> <i>(Format)</i>, which is set to HTML by default.',
+      alt: 'Export settings list: Gegevens aanpassen, Datumbereik, Indeling set to HTML, Mediakwaliteit',
+      rings: [[176, 231, 734, 295]] },
+    { cap: 'Select <b>JSON</b>, then click <b>Opslaan</b> <i>(Save)</i>. Back on the settings screen, click the blue button at the bottom to start the export.',
+      alt: 'Format dialog with HTML and JSON options, JSON selected, and a blue Opslaan button',
+      rings: [[176, 258, 734, 338], [175, 388, 735, 432]],
+      spot: [175, 258, 735, 432] },
+    { cap: 'Instagram asks for your password again. Type it and click <b>Doorgaan</b> <i>(Continue)</i>. You may also have to complete two-factor authentication.',
+      alt: 'Password prompt with a Wachtwoord field and a blue Doorgaan button',
+      rings: [[175, 277, 735, 334], [175, 356, 735, 400]],
+      spot: [175, 277, 735, 400] },
+    { cap: 'The request is listed under Aangevraagd and a message confirms the data is being prepared. Instagram notifies you by email when the download is ready, which can take a day or more.',
+      alt: 'Current activity tab showing the request as Aangevraagd, with a toast saying the data is being prepared',
+      rings: [[108, 385, 802, 468]] }
+  ];
+  const img = document.getElementById('shot');
+  const cap = document.getElementById('cap');
+  const marks = document.getElementById('marks');
+  const n = document.getElementById('n');
+  const back = document.getElementById('back');
+  const next = document.getElementById('next');
+  const progress = document.getElementById('progress');
+  document.getElementById('total').textContent = steps.length;
+  steps.forEach(() => progress.appendChild(document.createElement('span')));
+  const bars = progress.children;
+  let i = 0;
+
+  function box(cls, b) {
+    const el = document.createElement('div');
+    el.className = cls;
+    el.style.left = (b[0] / W * 100) + '%';
+    el.style.top = (b[1] / H * 100) + '%';
+    el.style.width = ((b[2] - b[0]) / W * 100) + '%';
+    el.style.height = ((b[3] - b[1]) / H * 100) + '%';
+    return el;
+  }
+
+  function show(k, push) {
+    i = Math.max(0, Math.min(steps.length - 1, k));
+    const s = steps[i];
+    img.src = 'step-' + (i + 1) + '.png';
+    img.alt = s.alt;
+    cap.innerHTML = s.cap;
+    marks.replaceChildren(box('spot', s.spot || s.rings[0]), ...s.rings.map(b => box('ring', b)));
+    n.textContent = i + 1;
+    [...bars].forEach((b, j) => b.classList.toggle('done', j <= i));
+    back.disabled = i === 0;
+    next.disabled = i === steps.length - 1;
+    next.textContent = i === steps.length - 1 ? 'Done' : 'Next';
+    if (push !== false) history.replaceState(null, '', '#' + (i + 1));
+    if (i + 1 < steps.length) { const p = new Image(); p.src = 'step-' + (i + 2) + '.png'; }
+  }
+  back.addEventListener('click', () => show(i - 1));
+  next.addEventListener('click', () => show(i + 1));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+  });
+  window.addEventListener('hashchange', () => show((parseInt(location.hash.slice(1), 10) || 1) - 1, false));
+  show((parseInt(location.hash.slice(1), 10) || 1) - 1, false);
+</script>
+</body>
+</html>
