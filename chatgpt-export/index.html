@@ -64,6 +64,7 @@
   .progress span.done { background: var(--accent); }
   figure { margin: 0; }
   .frame {
+    position: relative;
     border: 1px solid var(--line);
     border-radius: 6px;
     overflow: hidden;
@@ -74,8 +75,27 @@
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    object-position: top left;
+  }
+  /* Spotlight: one box per step; its shadow dims everything else */
+  .spot {
+    position: absolute;
+    border-radius: 8px;
+    box-shadow: 0 0 0 200vmax rgba(22, 24, 29, .32);
+    pointer-events: none;
+  }
+  /* Ring: the thing to click */
+  .ring {
+    position: absolute;
+    border: 3px solid var(--accent);
+    border-radius: 8px;
+    box-shadow: 0 0 0 0 rgba(11, 114, 133, .55);
+    animation: pulse 1.8s ease-out infinite;
+    pointer-events: none;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(11, 114, 133, .55); }
+    70%  { box-shadow: 0 0 0 14px rgba(11, 114, 133, 0); }
+    100% { box-shadow: 0 0 0 14px rgba(11, 114, 133, 0); }
   }
   figcaption {
     font-size: 22px;
@@ -115,9 +135,11 @@
     figcaption { font-size: 19px; min-height: 0; }
     .hint { display: none; }
     main { padding-top: 24px; }
+    .ring { border-width: 2px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .progress span { transition: none; }
+    .ring { animation: none; box-shadow: 0 0 0 4px rgba(11, 114, 133, .25); }
   }
 </style>
 </head>
@@ -131,7 +153,10 @@
     <span></span><span></span><span></span><span></span><span></span><span></span>
   </div>
   <figure>
-    <div class="frame"><img id="shot" src="step-1.png" alt="" width="921" height="535"></div>
+    <div class="frame">
+      <img id="shot" src="step-1.png" alt="" width="921" height="535">
+      <div id="marks" aria-hidden="true"></div>
+    </div>
     <figcaption id="cap"></figcaption>
   </figure>
   <nav aria-label="Steps">
@@ -141,35 +166,54 @@
   </nav>
 </main>
 <script>
+  // Boxes are [x0, y0, x1, y1] in pixels of the 921x535 screenshots.
   const steps = [
-    'Open <b>chatgpt.com</b> and sign in. Click your name at the bottom left of the sidebar and choose <b>Settings</b>.',
-    'Settings opens on General. In the left menu, scroll down and click <b>Data controls</b>.',
-    'Scroll to the bottom of Data controls and click <b>Export</b>, next to Export data.',
-    'Read the notice. The download link goes to your registered email address and expires after 24 hours. Click <b>Confirm export</b>.',
-    'ChatGPT asks you to re-enter your password. You may also have to sign in again and complete two-factor authentication. Then click <b>Continue</b>.',
-    'A green banner confirms the request. The export can take up to about 12 hours to arrive, so watch your inbox for an email from OpenAI with the download link.'
-  ];
-  const alts = [
-    'ChatGPT home screen with the sidebar open and the account name at the bottom left',
-    'Settings page showing the General section, with Data controls in the left menu',
-    'Data controls section scrolled to the bottom, showing the Export data row with an Export button',
-    'Dialog titled Request data export with a Confirm export button',
-    'OpenAI screen asking you to verify by entering your current password',
-    'Data controls with a green banner reading Data export requested'
+    { cap: 'Open <b>chatgpt.com</b> and sign in. Click your name at the bottom left of the sidebar and choose <b>Settings</b>.',
+      alt: 'ChatGPT home screen with the sidebar open and the account name at the bottom left',
+      rings: [[6, 466, 234, 518]] },
+    { cap: 'Settings opens on General. In the left menu, scroll down and click <b>Data controls</b>.',
+      alt: 'Settings page showing the General section, with Data controls in the left menu',
+      rings: [[6, 286, 234, 326]] },
+    { cap: 'Scroll to the bottom of Data controls and click <b>Export</b>, next to Export data.',
+      alt: 'Data controls section scrolled to the bottom, showing the Export data row with an Export button',
+      rings: [[798, 402, 880, 446]] },
+    { cap: 'Read the notice. The download link goes to your registered email address and expires after 24 hours. Click <b>Confirm export</b>.',
+      alt: 'Dialog titled Request data export with a Confirm export button',
+      rings: [[546, 318, 708, 362]] },
+    { cap: 'ChatGPT asks you to re-enter your password. You may also have to sign in again and complete two-factor authentication. Then click <b>Continue</b>.',
+      alt: 'OpenAI screen asking you to verify by entering your current password',
+      rings: [[286, 206, 636, 270], [286, 314, 636, 378]],
+      spot: [286, 206, 636, 378] },
+    { cap: 'A green banner confirms the request. The export can take up to about 12 hours to arrive, so watch your inbox for an email from OpenAI with the download link.',
+      alt: 'Data controls with a green banner reading Data export requested',
+      rings: [[176, 42, 744, 98]] }
   ];
   const img = document.getElementById('shot');
   const cap = document.getElementById('cap');
+  const marks = document.getElementById('marks');
   const n = document.getElementById('n');
   const back = document.getElementById('back');
   const next = document.getElementById('next');
   const bars = document.querySelectorAll('.progress span');
   let i = 0;
 
+  function box(cls, b) {
+    const el = document.createElement('div');
+    el.className = cls;
+    el.style.left = (b[0] / 921 * 100) + '%';
+    el.style.top = (b[1] / 535 * 100) + '%';
+    el.style.width = ((b[2] - b[0]) / 921 * 100) + '%';
+    el.style.height = ((b[3] - b[1]) / 535 * 100) + '%';
+    return el;
+  }
+
   function show(k, push) {
     i = Math.max(0, Math.min(steps.length - 1, k));
+    const s = steps[i];
     img.src = 'step-' + (i + 1) + '.png';
-    img.alt = alts[i];
-    cap.innerHTML = steps[i];
+    img.alt = s.alt;
+    cap.innerHTML = s.cap;
+    marks.replaceChildren(box('spot', s.spot || s.rings[0]), ...s.rings.map(b => box('ring', b)));
     n.textContent = i + 1;
     bars.forEach((b, j) => b.classList.toggle('done', j <= i));
     back.disabled = i === 0;
