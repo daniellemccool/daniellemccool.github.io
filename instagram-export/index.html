@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Request your Instagram data export</title>
-<meta name="description" content="Nine steps to request a copy of your own Instagram data from Meta Accounts Centre, the way a study participant would.">
+<meta name="description" content="Eleven steps to request a copy of your own Instagram data from Meta Accounts Centre, the way a study participant would.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
@@ -147,7 +147,7 @@
 <main>
   <header>
     <h1>Request your Instagram data export</h1>
-    <div class="count"><span id="n">1</span> of <span id="total">9</span></div>
+    <div class="count"><span id="n">1</span> of <span id="total">11</span></div>
   </header>
   <div class="progress" id="progress" aria-hidden="true"></div>
   <figure>
@@ -167,7 +167,14 @@
   // Boxes are [x0, y0, x1, y1] in pixels of the 914x480 screenshots.
   const W = 914, H = 480;
   const steps = [
-    { cap: 'Open <b>accountscenter.instagram.com</b> and sign in. Under Accountinstellingen, click <b>Je gegevens en toestemmingen</b> <i>(Your information and permissions)</i>.',
+    { cap: 'Open <b>instagram.com</b> and sign in. Click <b>Meer</b> <i>(More)</i> at the bottom left, then <b>Instellingen</b> <i>(Settings)</i> in the menu that opens.',
+      alt: 'Instagram home page with the Meer menu open, showing Instellingen as the first item',
+      rings: [[15, 440, 105, 474], [230, 80, 480, 122]],
+      spot: [230, 80, 480, 122] },
+    { cap: 'In Instagram settings, click <b>Accountcentrum</b> <i>(Accounts Centre)</i> under Je account.',
+      alt: 'Instagram settings page with the Accountcentrum card under Je account',
+      rings: [[114, 187, 376, 330]] },
+    { cap: 'The Meta Accounts Centre opens. Under Accountinstellingen, click <b>Je gegevens en toestemmingen</b> <i>(Your information and permissions)</i>.',
       alt: 'Meta Accounts Centre with the Je gegevens en toestemmingen row in the account settings list',
       rings: [[121, 392, 789, 443]] },
     { cap: 'Click <b>Je gegevens exporteren</b> <i>(Export your information)</i>.',
